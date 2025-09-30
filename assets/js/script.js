@@ -10,9 +10,11 @@ const vegetables = [
 
 // ======= Quantity Options =======
 const qtyOptions = [
+  { label: "1 kg", factor: 1 },
+  { label: "2 kg", factor: 2 },
   { label: "250 gm", factor: 0.25 },
   { label: "500 gm", factor: 0.5 },
-  { label: "1 kg", factor: 1 }
+  
 ];
 
 // ======= Cart =======
@@ -34,12 +36,14 @@ function renderVegCards() {
         <div class="card-body d-flex flex-column">
           <h5>${v.name}</h5>
           <p>₹${v.pricePerKg.toFixed(2)}/Kg</p>
-          <select id="qty-${v.id}" class="form-select mb-2">
-            ${qtyOptions.map(q=>`<option value="${q.factor}">${q.label}</option>`).join("")}
-          </select>
-          <button class="btn btn-success mt-auto" onclick="addToCart(${v.id})">
-            🛒 Add to Cart
-          </button>
+          <div class="d-flex gap-2 mb-2">
+            <select id="qty-${v.id}" class="form-select">
+              ${qtyOptions.map(q=>`<option value="${q.factor}">${q.label}</option>`).join("")}
+            </select>
+            <button class="btn btn-success flex-shrink-0" onclick="addToCart(${v.id})">
+              🛒 Add to Cart
+            </button>
+          </div>
         </div>
       </div>
     </div>
