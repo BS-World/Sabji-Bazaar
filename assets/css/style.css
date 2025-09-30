@@ -1,0 +1,55 @@
+body {
+  background: #f8f9fa;
+}
+.card img {
+  height: 180px;
+  object-fit: cover;
+}
+.about-section {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  padding: 2.5rem 2rem;
+}
+
+.about-section h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #2d572c;
+}
+
+.about-section h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #388e3c;
+}
+
+.about-section ul {
+  padding-left: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.about-section ul li {
+  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+}
+
+.about-section a {
+  color: #388e3c;
+  text-decoration: none;
+}
+
+.about-section a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 767.98px) {
+  .about-section {
+    padding: 1.5rem 1rem;
+  }
+  .about-section h2 {
+    font-size: 1.5rem;
+  }
+}
