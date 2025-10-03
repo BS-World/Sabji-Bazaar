@@ -1,11 +1,20 @@
 // ======= Vegetables List =======
 const vegetables = [
-  { id: 1, name: "Tomato", pricePerKg: 60, img: "assets/img/tomato.jpg" },
-  { id: 2, name: "Potato", pricePerKg: 35, img: "assets/img/potato.jpg" },
-  { id: 3, name: "Onion", pricePerKg: 50, img: "assets/img/onion.jpg" },
-  { id: 4, name: "Carrot", pricePerKg: 90, img: "assets/img/carrot.jpg" },
-  { id: 5, name: "Eggplant (Brinjal)", pricePerKg: 70, img: "assets/img/brinjal.jpg" },
-  { id: 6, name: "Spinach", pricePerKg: 40, img: "assets/img/spinach.webp" }
+  { id: 1, name: "Tomato", pricePerKg: 48, img: "assets/img/tomato.jpg" },
+  { id: 2, name: "Potato", pricePerKg: 32, img: "assets/img/potato.jpg" },
+  { id: 3, name: "Onion", pricePerKg: 38, img: "assets/img/onion.jpg" },
+  { id: 4, name: "Carrot", pricePerKg: 60, img: "assets/img/carrot.jpg" },
+  { id: 5, name: "Eggplant (Brinjal)", pricePerKg: 55, img: "assets/img/brinjal.jpg" },
+  { id: 6, name: "Spinach", pricePerKg: 30, img: "assets/img/spinach.webp" },
+  { id: 7, name: "Cauliflower", pricePerKg: 50, img: "assets/img/cauliflower.webp" },
+  { id: 8, name: "Cabbage", pricePerKg: 28, img: "assets/img/cabbage.webp" },
+  { id: 9, name: "Green Peas", pricePerKg: 80, img: "assets/img/peas.webp" },
+  { id: 10, name: "Capsicum", pricePerKg: 70, img: "assets/img/capsicum.jpg" },
+  { id: 11, name: "Lady Finger (Okra)", pricePerKg: 60, img: "assets/img/okra.webp" },
+  { id: 12, name: "Bottle Gourd", pricePerKg: 35, img: "assets/img/bottle-gourd.cms" },
+  { id: 13, name: "Cucumber", pricePerKg: 40, img: "assets/img/cucumber.webp" },
+  { id: 14, name: "Pumpkin", pricePerKg: 25, img: "assets/img/pumpkin.jpeg" },
+  { id: 15, name: "Bitter Gourd", pricePerKg: 55, img: "assets/img/bitter-gourd.jpeg" }
 ];
 
 // ======= Quantity Options =======
@@ -30,18 +39,20 @@ function saveCart() {
 function renderVegCards() {
   const list = document.getElementById("veg-list");
   list.innerHTML = vegetables.map(v => `
-    <div class="col-md-3">
-      <div class="card shadow-sm h-100 veg-card">
-        <img src="${v.img}" class="card-img-top veg-img" alt="${v.name}">
-        <div class="card-body d-flex flex-column">
-          <h5>${v.name}</h5>
-          <p>₹${v.pricePerKg.toFixed(2)}/Kg</p>
-          <div class="d-flex gap-2 mb-2">
-            <select id="qty-${v.id}" class="form-select">
+    <div class="col-md-4 col-lg-3 mb-4">
+      <div class="card shadow-sm h-100 veg-card border-0 rounded-4">
+        <img src="${v.img}" class="card-img-top veg-img rounded-top-4" alt="${v.name}" style="height:180px;object-fit:cover;">
+        <div class="card-body d-flex flex-column justify-content-between">
+          <div>
+            <h5 class="card-title fw-semibold mb-1">${v.name}</h5>
+            <p class="text-success fw-bold mb-2">₹${v.pricePerKg.toFixed(2)} <span class="text-muted fw-normal">/Kg</span></p>
+          </div>
+          <div class="d-flex gap-2 align-items-center mt-auto">
+            <select id="qty-${v.id}" class="form-select form-select-sm rounded-pill" style="max-width:100px;">
               ${qtyOptions.map(q=>`<option value="${q.factor}">${q.label}</option>`).join("")}
             </select>
-            <button class="btn btn-success flex-shrink-0" onclick="addToCart(${v.id})">
-              🛒 Add to Cart
+            <button class="btn btn-success btn-sm rounded-pill px-3 shadow-sm" onclick="addToCart(${v.id})">
+              <span class="me-1">🛒</span>Add to Cart
             </button>
           </div>
         </div>
