@@ -23,7 +23,6 @@ const qtyOptions = [
   { label: "2 kg", factor: 2 },
   { label: "250 gm", factor: 0.25 },
   { label: "500 gm", factor: 0.5 },
-  
 ];
 
 // ======= Cart =======
@@ -38,27 +37,37 @@ function saveCart() {
 // ======= Render Vegetables =======
 function renderVegCards() {
   const list = document.getElementById("veg-list");
-  list.innerHTML = vegetables.map(v => `
-    <div class="col-md-4 col-lg-3 mb-4">
-      <div class="card shadow-sm h-100 veg-card border-0 rounded-4">
-        <img src="${v.img}" class="card-img-top veg-img rounded-top-4" alt="${v.name}" style="height:180px;object-fit:cover;">
-        <div class="card-body d-flex flex-column justify-content-between">
-          <div>
-            <h5 class="card-title fw-semibold mb-1">${v.name}</h5>
-            <p class="text-success fw-bold mb-2">₹${v.pricePerKg.toFixed(2)} <span class="text-muted fw-normal">/Kg</span></p>
-          </div>
-          <div class="d-flex gap-2 align-items-center mt-auto">
-            <select id="qty-${v.id}" class="form-select form-select-sm rounded-pill" style="max-width:100px;">
-              ${qtyOptions.map(q=>`<option value="${q.factor}">${q.label}</option>`).join("")}
-            </select>
-            <button class="btn btn-success btn-sm rounded-pill px-3 shadow-sm" onclick="addToCart(${v.id})">
-              <span class="me-1">🛒</span>Add to Cart
-            </button>
+  list.innerHTML = vegetables.map(v => {
+    const cartItem = cart.find(it => it.id === v.id);
+    const count = cartItem ? cartItem.count : 0;
+
+    return `
+      <div class="col-md-4 col-lg-3 mb-4">
+        <div class="card shadow-sm h-100 veg-card border-0 rounded-4">
+          <img src="${v.img}" class="card-img-top veg-img rounded-top-4" alt="${v.name}" style="height:180px;object-fit:cover;">
+          <div class="card-body d-flex flex-column justify-content-between">
+            <div>
+              <h5 class="card-title fw-semibold mb-1">${v.name}</h5>
+              <p class="text-success fw-bold mb-2">₹${v.pricePerKg.toFixed(2)} 
+                <span class="text-muted fw-normal">/Kg</span>
+              </p>
+            </div>
+            <div class="d-flex gap-2 align-items-center mt-auto">
+              <select id="qty-${v.id}" class="form-select form-select-sm rounded-pill" style="max-width:100px;">
+                ${qtyOptions.map(q=>`<option value="${q.factor}">${q.label}</option>`).join("")}
+              </select>
+              <button id="btn-${v.id}" 
+                class="btn btn-sm rounded-pill px-3 shadow-sm ${count>0 ? 'btn-warning' : 'btn-success'}" 
+                onclick="addToCart(${v.id})">
+                <span class="me-1">🛒</span>
+                ${count>0 ? `Added (${count})` : 'Add to Cart'}
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  `).join("");
+    `;
+  }).join("");
 }
 
 // ======= Add Item to Cart =======
@@ -67,11 +76,28 @@ function addToCart(vegId) {
   const select = document.getElementById(`qty-${vegId}`);
   const factor = +select.value;
   const qtyLabel = qtyOptions.find(q => q.factor === factor).label;
-  const amount = +(veg.pricePerKg * factor).toFixed(2);
+  const baseAmount = +(veg.pricePerKg * factor).toFixed(2);
 
-  cart.push({ id: veg.id, name: veg.name, qtyLabel, qtyFactor: factor, pricePerKg: veg.pricePerKg, amount });
+  // check if already in cart with same qty
+  let existing = cart.find(i => i.id === vegId && i.qtyFactor === factor);
+  if (existing) {
+    existing.count = (existing.count || 1) + 1;
+    existing.amount = +(veg.pricePerKg * factor * existing.count).toFixed(2);
+  } else {
+    cart.push({ 
+      id: veg.id, 
+      name: veg.name, 
+      qtyLabel, 
+      qtyFactor: factor, 
+      pricePerKg: veg.pricePerKg, 
+      amount: baseAmount, 
+      count: 1 
+    });
+  }
+
   saveCart();
   renderCartPanel();
+  renderVegCards(); // update button color + text
 }
 
 // ======= Remove Item =======
@@ -80,6 +106,7 @@ function removeFromCart(idx) {
   saveCart();
   renderCartPanel();
   renderOrderSummary();
+  renderVegCards();
 }
 
 // ======= Update Item Quantity =======
@@ -87,10 +114,16 @@ function updateCartQty(idx, newFactor) {
   const item = cart[idx];
   const factor = +newFactor;
   const qtyLabel = qtyOptions.find(q => q.factor === factor).label;
-  cart[idx] = { ...item, qtyFactor: factor, qtyLabel, amount: +(item.pricePerKg * factor).toFixed(2) };
+  cart[idx] = { 
+    ...item, 
+    qtyFactor: factor, 
+    qtyLabel, 
+    amount: +(item.pricePerKg * factor * item.count).toFixed(2) 
+  };
   saveCart();
   renderCartPanel();
   renderOrderSummary();
+  renderVegCards();
 }
 
 // ======= Render Cart Panel =======
@@ -109,7 +142,7 @@ function renderCartPanel() {
   cartItemsEl.innerHTML = cart.map((it, idx) => `
     <div class="list-group-item d-flex justify-content-between align-items-center">
       <div>
-        <strong>${it.name}</strong><br>
+        <strong>${it.name}</strong> (${it.count}x)<br>
         <select class="form-select form-select-sm mt-1" style="width:120px"
           onchange="updateCartQty(${idx}, this.value)">
           ${qtyOptions.map(q=>`<option value="${q.factor}" ${q.factor===it.qtyFactor?'selected':''}>${q.label}</option>`).join("")}
@@ -124,7 +157,10 @@ function renderCartPanel() {
 
   const total = cart.reduce((s,it)=>s+it.amount,0);
   cartTotalEl.textContent = `₹${total.toFixed(2)}`;
-  cartBadge.textContent = cart.length;
+
+  // show total count of all items
+  const totalCount = cart.reduce((s,it)=>s+it.count,0);
+  cartBadge.textContent = totalCount;
 }
 
 // ======= Billing Modal =======
@@ -146,8 +182,8 @@ function renderOrderSummary() {
   }
 
   orderSummaryEl.innerHTML = cart.map((it, idx) => 
-    `${idx+1}. ${it.name} — ${it.qtyLabel} — ₹${it.amount.toFixed(2)}`
-  ).join("\n");
+    `${idx+1}. ${it.name} (${it.count}x) — ${it.qtyLabel} — ₹${it.amount.toFixed(2)}`
+  ).join("<br>");
 
   const total = cart.reduce((s,it)=>s+it.amount,0);
   modalTotalEl.textContent = `₹${total.toFixed(2)}`;
@@ -183,13 +219,13 @@ function submitOrder() {
 
   let msg = "🛒 *Sabji Bazaar Order*\n\n*Items:*\n";
   cart.forEach((it, idx) => {
-    msg += `${idx+1}. ${it.name} — ${it.qtyLabel} — ₹${it.amount.toFixed(2)}\n`;
+    msg += `${idx+1}. ${it.name} (${it.count}x) — ${it.qtyLabel} — ₹${it.amount.toFixed(2)}\n`;
   });
 
   const total = cart.reduce((s,it)=>s+it.amount,0);
   msg += `\n*Total Amount:* ₹${total.toFixed(2)}\n\n*Delivery Address:*\n${address}\n\nPlease confirm. Thank you!`;
 
-  const phone = "916261627344";
+  const phone = "916261627344"; // your WhatsApp number
   const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
   window.open(url, "_blank");
 
