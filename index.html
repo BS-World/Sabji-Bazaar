@@ -10,70 +10,195 @@
     <link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body>
-    <header class="p-3 bg-success text-white d-flex justify-content-between fixed-top">
-        <h1 class="h4">🥦 Sabji Bazaar</h1>
-        <button class="btn btn-light position-relative" data-bs-toggle="offcanvas" data-bs-target="#cartPanel">
-            🛒 Cart
-            <span id="cartBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+    <header class="p-3 bg-success text-white d-flex justify-content-between align-items-center shadow fixed-top" style="z-index:1045;">
+        <div class="d-flex align-items-center gap-2">
+            <img src="assets/img/logo.png" alt="Sabji Bazaar Logo" style="height:50px;width:50px;border-radius:50%;background:#fff;padding:3px;">
+            <span class="h4 mb-0 fw-bold">Sabji Bazaar</span>
+        </div>
+        <button class="btn btn-light d-flex align-items-center position-relative px-3 py-2 rounded-pill shadow-sm"
+            data-bs-toggle="offcanvas" data-bs-target="#cartPanel" style="font-weight:500;">
+            <span class="me-2" style="font-size:1.2rem;">🛒</span>
+            Cart
+            <span id="cartBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:0.9rem;">0</span>
         </button>
     </header>
 
-    <br><br>
+    <!-- Hero Section -->
+    <section class="container-fluid bg-light py-5 mt-5 shadow-sm">
+        <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between gap-4">
+            <div>
+                <h1 class="display-4 fw-bold mb-3 text-success">Fresh Vegetables, Delivered Fast!</h1>
+                <p class="lead mb-4">Order farm-fresh veggies from your local market and get them delivered to your doorstep in Indore. Simple, quick, and affordable shopping experience.</p>
+                <a href="#veg-list" class="btn btn-success btn-lg rounded-pill px-4 shadow">Shop Now</a>
+            </div>
+            <img src="assets/img/vegetables.webp" alt="Fresh Vegetables" class="img-fluid rounded-4 shadow-lg" style="max-width: 400px; background: #fff;">
+        </div>
+    </section>
+
 
     <!-- Info Section -->
     <section class="container mt-5">
-        <div class="alert alert-info d-flex align-items-center" role="alert">
-            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
-            <div>
-                Welcome to <strong>Sabji Bazaar</strong>! Fresh vegetables delivered to your doorstep. Fast, local, and affordable.
+        <!-- <div class="alert alert-info d-flex align-items-center gap-3 shadow-sm border-0 rounded-4 py-3 px-4" role="alert" style="background: linear-gradient(90deg, #e0f7fa 0%, #e8f5e9 100%);">
+            <svg class="bi flex-shrink-0" width="28" height="28" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+            <div class="fs-5">
+                Welcome to <strong>Sabji Bazaar</strong>! <span class="text-success">Fresh vegetables</span> delivered to your doorstep. <span class="fw-semibold">Fast</span>, <span class="fw-semibold">local</span>, and <span class="fw-semibold">affordable</span>.
             </div>
-        </div>
-        <div class="row text-center mb-4">
-            <div class="col-md-4 mb-3">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">🛒 Easy Shopping</h5>
-                        <p class="card-text">Browse and add fresh vegetables to your cart with just a click.</p>
+        </div> -->
+        <div class="row text-center mb-4 mt-4 g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-lg rounded-4 hover-shadow" style="transition: box-shadow 0.2s;">
+                    <div class="card-body py-4">
+                        <div class="mb-3" style="font-size:2.5rem; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">🛒</div>
+                        <h5 class="card-title fw-bold mb-2">Easy Shopping</h5>
+                        <p class="card-text text-muted">Browse and add fresh vegetables to your cart with just a click.</p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mb-3">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">🚚 Fast Delivery</h5>
-                        <p class="card-text">Get your order delivered quickly and safely to your home.</p>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-lg rounded-4 hover-shadow" style="transition: box-shadow 0.2s;">
+                    <div class="card-body py-4">
+                        <div class="mb-3" style="font-size:2.5rem; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">🚚</div>
+                        <h5 class="card-title fw-bold mb-2">Fast Delivery</h5>
+                        <p class="card-text text-muted">Get your order delivered quickly and safely to your home.</p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mb-3">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">💰 Best Prices</h5>
-                        <p class="card-text">Enjoy competitive prices and great deals every day.</p>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-lg rounded-4 hover-shadow" style="transition: box-shadow 0.2s;">
+                    <div class="card-body py-4">
+                        <div class="mb-3" style="font-size:2.5rem; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">💰</div>
+                        <h5 class="card-title fw-bold mb-2">Best Prices</h5>
+                        <p class="card-text text-muted">Enjoy competitive prices and great deals every day.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    
+
     <main class="container my-4" style="margin-top: 80px;">
         <div id="veg-list" class="row g-3"></div>
     </main>
 
     <!-- Cart Side Panel -->
-    <div class="offcanvas offcanvas-end" id="cartPanel">
-        <div class="offcanvas-header">
-            <h5>Your Cart</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    <div class="offcanvas offcanvas-end shadow-lg rounded-start-4" id="cartPanel" style="width: 370px; background: linear-gradient(120deg, #e0ffe9 0%, #f8fff8 100%);">
+        <div class="offcanvas-header border-bottom pb-2" style="background: #fff; border-top-left-radius: 1rem;">
+            <h5 class="fw-bold text-success mb-0">🛒 Your Cart</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body d-flex flex-column">
-            <div id="cart-items" class="flex-grow-1"></div>
-            <div class="border-top pt-2">
-                <p><strong>Total:</strong> <span id="cartTotal">₹0.00</span></p>
-                <button class="btn btn-primary w-100" onclick="openBilling()">Checkout</button>
+        <div class="offcanvas-body d-flex flex-column px-3 py-2">
+            <div id="cart-items" class="flex-grow-1 mb-3" style="overflow-y:auto; max-height: 350px;"></div>
+            <div class="border-top pt-3" style="background: #f6fff8;">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="fw-semibold fs-5">Total:</span>
+                    <span id="cartTotal" class="fw-bold fs-5 text-success">₹0.00</span>
+                </div>
+                <button class="btn btn-success w-100 rounded-pill py-2 fw-semibold shadow-sm" onclick="openBilling()">
+                    <span style="font-size:1.2rem;">💳</span> Checkout
+                </button>
             </div>
         </div>
     </div>
+
+    <!-- Testimonials Section -->
+    <section class="container my-5">
+        <h2 class="text-center mb-4 fw-bold text-success">What Our Customers Say</h2>
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4">
+                <div class="card border-0 shadow rounded-4 h-100">
+                    <div class="card-body">
+                        <p class="card-text fst-italic">"Super fresh veggies and quick delivery. Sabji Bazaar makes shopping so easy!"</p>
+                        <div class="d-flex align-items-center mt-3">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Customer" class="rounded-circle me-3" style="width:48px;height:48px;">
+                            <div>
+                                <span class="fw-semibold">Priya S.</span><br>
+                                <small class="text-muted">Indore</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow rounded-4 h-100">
+                    <div class="card-body">
+                        <p class="card-text fst-italic">"Affordable prices and great quality. Highly recommend to everyone in the city."</p>
+                        <div class="d-flex align-items-center mt-3">
+                            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Customer" class="rounded-circle me-3" style="width:48px;height:48px;">
+                            <div>
+                                <span class="fw-semibold">Rahul M.</span><br>
+                                <small class="text-muted">Indore</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow rounded-4 h-100">
+                    <div class="card-body">
+                        <p class="card-text fst-italic">"Loved the fast service and fresh produce. Will order again for sure!"</p>
+                        <div class="d-flex align-items-center mt-3">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Customer" class="rounded-circle me-3" style="width:48px;height:48px;">
+                            <div>
+                                <span class="fw-semibold">Anjali T.</span><br>
+                                <small class="text-muted">Indore</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- More Info Section -->
+    <section class="container my-5">
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <h4>Why Choose Sabji Bazaar?</h4>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">🌱 Locally sourced, farm-fresh vegetables</li>
+                    <li class="list-group-item">🕒 Same-day delivery available</li>
+                    <li class="list-group-item">📦 No minimum order value</li>
+                    <li class="list-group-item">🔒 Secure payment options</li>
+                    <li class="list-group-item">📞 Friendly customer support</li>
+                </ul>
+            </div>
+            <div class="col-md-6 mb-4">
+                <h4>How It Works</h4>
+                <ol class="list-group list-group-numbered list-group-flush">
+                    <li class="list-group-item">Browse our selection of fresh vegetables.</li>
+                    <li class="list-group-item">Add your favorites to the cart.</li>
+                    <li class="list-group-item">Checkout and provide your delivery address.</li>
+                    <li class="list-group-item">Receive your order at your doorstep!</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="container my-4">
+        <div class="alert alert-success d-flex align-items-center" role="alert">
+            <span class="me-2" style="font-size:1.5rem;">📍</span>
+            <div>
+                <strong>Now serving:</strong> Indore, Madhya Pradesh
+            </div>
+        </div>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h6 class="card-title mb-2">Our Service Area</h6>
+                <div style="height:300px; width:100%;">
+                    <iframe
+                        src="https://www.openstreetmap.org/export/embed.html?bbox=75.8304%2C22.6949%2C75.9304%2C22.7949&amp;layer=mapnik&amp;marker=22.7196%2C75.8577"
+                        style="border:1px solid #ccc; width:100%; height:100%; border-radius:8px;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+                <small class="text-muted">Map: Indore, Madhya Pradesh</small>
+            </div>
+        </div>
+    </section>
 
     <!-- Billing Modal -->
     <div class="modal fade" id="billingModal" tabindex="-1">
@@ -96,9 +221,14 @@
         </div>
     </div>
 
-    <footer class="bg-success text-white text-center py-3 mt-5">
-        <div class="container">
+    <footer class="bg-success text-white text-center py-4 mt-5 shadow-sm">
+        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
             <small>&copy; 2024 Sabji Bazaar. All rights reserved.</small>
+            <small>
+                Design by 
+                <span class="fw-semibold">Bhanu Pratap Biswas</span> &amp; 
+                <a href="https://alfidotech.com" target="_blank" class="text-white text-decoration-underline fw-semibold">Alfido Tech</a>
+            </small>
         </div>
     </footer>
 
